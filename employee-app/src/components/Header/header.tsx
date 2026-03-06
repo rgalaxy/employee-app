@@ -1,25 +1,19 @@
-import { useState } from "react";
 import "./header.css";
-
-type Role = "Admin" | "Ops";
+import { useRole } from "../../context/RoleContext";
 
 interface HeaderProps {
-  onRoleChange?: (role: Role) => void;
   isMenuOpen?: boolean;
   onMenuToggle?: () => void;
 }
 
 export default function Header({
-  onRoleChange,
   isMenuOpen = false,
   onMenuToggle,
 }: HeaderProps) {
-  const [role, setRole] = useState<Role>("Admin");
+  const { role, setRole } = useRole();
 
   const handleToggle = () => {
-    const next: Role = role === "Admin" ? "Ops" : "Admin";
-    setRole(next);
-    onRoleChange?.(next);
+    setRole(role === "Admin" ? "Ops" : "Admin");
   };
 
   const isOps = role === "Ops";

@@ -1,6 +1,7 @@
 import "./App.css";
 import { useState } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
+import { RoleProvider } from "./context/RoleContext";
 import Header from "./components/Header/header";
 import LeftMenu from "./components/LeftMenu/left-menu";
 import WizardPage from "./pages/WizardPage";
@@ -13,19 +14,21 @@ function App() {
   const handleMenuClose = () => setIsMenuOpen(false);
 
   return (
-    <div className="app-layout">
-      <Header isMenuOpen={isMenuOpen} onMenuToggle={handleMenuToggle} />
-      <div className="app-body">
-        <LeftMenu isOpen={isMenuOpen} onClose={handleMenuClose} />
-        <main className="app-main">
-          <Routes>
-            <Route path="/" element={<Navigate to="/wizard" replace />} />
-            <Route path="/wizard" element={<WizardPage />} />
-            <Route path="/employee-list" element={<EmployeeListPage />} />
-          </Routes>
-        </main>
+    <RoleProvider>
+      <div className="app-layout">
+        <Header isMenuOpen={isMenuOpen} onMenuToggle={handleMenuToggle} />
+        <div className="app-body">
+          <LeftMenu isOpen={isMenuOpen} onClose={handleMenuClose} />
+          <main className="app-main">
+            <Routes>
+              <Route path="/" element={<Navigate to="/wizard" replace />} />
+              <Route path="/wizard" element={<WizardPage />} />
+              <Route path="/employee-list" element={<EmployeeListPage />} />
+            </Routes>
+          </main>
+        </div>
       </div>
-    </div>
+    </RoleProvider>
   );
 }
 
