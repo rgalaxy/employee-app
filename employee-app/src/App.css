@@ -76,9 +76,31 @@ table {
 }
 
 #root {
-  max-width: 1280px;
+  width: 100%;
+}
+
+.page-content {
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 2rem 1rem;
+}
+
+@media (min-width: 768px) {
+  .page-content {
+    padding: 2rem 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .page-content {
+    padding: 2rem;
+  }
+}
+
+@media (min-width: 1440px) {
+  .page-content {
+    padding: 2rem 2.5rem;
+  }
 }
 
 .demo-section {
