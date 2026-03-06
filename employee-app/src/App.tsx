@@ -1,45 +1,31 @@
 import "./App.css";
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import Button from "./components/Button/button";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Header from "./components/Header/header";
+import LeftMenu from "./components/LeftMenu/left-menu";
+import WizardPage from "./pages/WizardPage";
+import EmployeeListPage from "./pages/EmployeeListPage";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const handleMenuToggle = () => setIsMenuOpen((prev) => !prev);
+  const handleMenuClose = () => setIsMenuOpen(false);
 
   return (
-    <>
-      <Header />
-      <div className="page-content">
-        <div>
-          <a href="https://vite.dev" target="_blank">
-            <img src="/vite.svg" className="logo" alt="Vite logo" />
-          </a>
-          <a href="https://reactjs.org" target="_blank">
-            <img src={reactLogo} className="logo react" alt="React logo" />
-          </a>
-        </div>
-        <h1>Vite + React</h1>
-        <div className="card">
-          <button onClick={() => setCount((count) => count + 1)}>
-            count is {count}
-          </button>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test HMR
-          </p>
-        </div>
-        <p className="read-the-docs">
-          Click on the Vite and React logos to learn more
-        </p>
-        <Button
-          variant="primary"
-          size="md"
-          onClick={() => alert("Button clicked!")}
-        >
-          test
-        </Button>
+    <div className="app-layout">
+      <Header isMenuOpen={isMenuOpen} onMenuToggle={handleMenuToggle} />
+      <div className="app-body">
+        <LeftMenu isOpen={isMenuOpen} onClose={handleMenuClose} />
+        <main className="app-main">
+          <Routes>
+            <Route path="/" element={<Navigate to="/wizard" replace />} />
+            <Route path="/wizard" element={<WizardPage />} />
+            <Route path="/employee-list" element={<EmployeeListPage />} />
+          </Routes>
+        </main>
       </div>
-    </>
+    </div>
   );
 }
 

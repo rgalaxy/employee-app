@@ -5,9 +5,15 @@ type Role = "Admin" | "Ops";
 
 interface HeaderProps {
   onRoleChange?: (role: Role) => void;
+  isMenuOpen?: boolean;
+  onMenuToggle?: () => void;
 }
 
-export default function Header({ onRoleChange }: HeaderProps) {
+export default function Header({
+  onRoleChange,
+  isMenuOpen = false,
+  onMenuToggle,
+}: HeaderProps) {
   const [role, setRole] = useState<Role>("Admin");
 
   const handleToggle = () => {
@@ -21,7 +27,31 @@ export default function Header({ onRoleChange }: HeaderProps) {
   return (
     <header className="header">
       <div className="header__inner">
-        <span className="header__brand">Employee App v1</span>
+        <div className="header__left">
+          <button
+            type="button"
+            className="header__hamburger"
+            aria-label={
+              isMenuOpen ? "Close navigation menu" : "Open navigation menu"
+            }
+            aria-expanded={isMenuOpen}
+            aria-controls="left-menu"
+            onClick={onMenuToggle}
+          >
+            {isMenuOpen ? (
+              <span className="header__hamburger-icon" aria-hidden="true">
+                ✕
+              </span>
+            ) : (
+              <span className="header__hamburger-icon" aria-hidden="true">
+                <span />
+                <span />
+                <span />
+              </span>
+            )}
+          </button>
+          <span className="header__brand">Employee App v1</span>
+        </div>
 
         <div className="header__controls">
           <div className="header__toggle">
