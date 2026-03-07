@@ -22,23 +22,23 @@ npm install
 npm run dev
 ```
 
-### Run development server (with mock API)
+### Run development server
 
 ```bash
-npm run dev:mock
+npm run dev:api
 ```
 
-Both servers run on [http://localhost:3000](http://localhost:3000).
+The app will be available at `http://localhost:5173` and the mock API at `http://localhost:4001` and `http://localhost:4002`.
 
 ## Scripts
 
-| Script             | Description                     |
-| ------------------ | ------------------------------- |
-| `npm run dev`      | Start SSR dev server            |
-| `npm run dev:mock` | Start mock JSON server          |
-| `npm run build`    | Build client and server bundles |
-| `npm run preview`  | Preview production build        |
-| `npm test`         | Run unit tests                  |
+| Script            | Description              |
+| ----------------- | ------------------------ |
+| `npm run dev`     | Start SSR dev server     |
+| `npm run dev:api` | Start mock JSON server   |
+| `npm run build`   | Build client App         |
+| `npm run preview` | Preview production build |
+| `npm test`        | Run unit tests           |
 
 ## Project Structure
 
