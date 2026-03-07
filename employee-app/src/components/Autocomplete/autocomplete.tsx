@@ -47,7 +47,7 @@ export default function Autocomplete({
   } = useAsyncAutocomplete({ fetchFn: fetchOptions, debounceMs });
 
   useEffect(() => {
-    setQuery(value);
+    setQuery(value ?? "");
   }, [value, setQuery]);
 
   useEffect(() => {

@@ -28,7 +28,7 @@ export function useAsyncAutocomplete({
   const debouncedQuery = useDebounce(query, debounceMs)
 
   const filteredOptions = useMemo(() => {
-    if (!debouncedQuery.trim()) return allOptions
+    if (!debouncedQuery?.trim()) return allOptions
     return allOptions.filter((o) =>
       o.label.toLowerCase().includes(debouncedQuery.toLowerCase()),
     )
