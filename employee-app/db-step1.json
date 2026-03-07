@@ -1,10 +1,31 @@
 {
-  "$schema": "./node_modules/json-server/schema.json",
   "departments": [
-    { "id": "1", "name": "Lending" },
-    { "id": "2", "name": "Funding" },
-    { "id": "3", "name": "Operations" },
-    { "id": "4", "name": "Engineering" }
+    {
+      "id": "1",
+      "name": "Lending"
+    },
+    {
+      "id": "2",
+      "name": "Funding"
+    },
+    {
+      "id": "3",
+      "name": "Operations"
+    },
+    {
+      "id": "4",
+      "name": "Engineering"
+    }
   ],
-  "basicInfo": []
+  "basicInfo": [
+    {
+      "id": "24f3",
+      "fullName": "John Doe",
+      "email": "john@company.com",
+      "department": "Operations",
+      "role": "Engineer",
+      "employeeId": "OPE-001"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }

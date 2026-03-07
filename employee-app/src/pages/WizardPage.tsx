@@ -1,4 +1,6 @@
 import "./wizard.css";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Controller } from "react-hook-form";
 import { useWizardForm, STEP_1_FIELDS } from "../hooks/useWizardForm";
 import { useDraftPersistence } from "../hooks/useDraftPersistence";
@@ -8,8 +10,8 @@ import FormField from "../components/FormField/form-field";
 import Autocomplete from "../components/Autocomplete/autocomplete";
 import PhotoUpload from "../components/PhotoUpload/photo-upload";
 import Button from "../components/Button/button";
-import { getDepartments } from "../services/basicInfoService";
-import { getLocations } from "../services/detailsService";
+import { getDepartments, postBasicInfo } from "../services/basicInfoService";
+import { getLocations, postDetails } from "../services/detailsService";
 import type { AutocompleteOption } from "../hooks/useAsyncAutocomplete";
 
 const WIZARD_STEPS = ["Basic Info", "Details"];
@@ -32,6 +34,7 @@ async function fetchLocationOptions(): Promise<AutocompleteOption[]> {
 }
 
 export default function WizardPage() {
+  const navigate = useNavigate();
   const { role } = useRole();
   const { form, step, setStep } = useWizardForm();
   const { clearDraft } = useDraftPersistence(form, role);
@@ -41,14 +44,49 @@ export default function WizardPage() {
     control,
     formState: { errors },
   } = form;
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const handleNext = async () => {
     const valid = await form.trigger(STEP_1_FIELDS);
     if (valid) setStep(1);
   };
 
-  const onSubmit = () => {
-    console.log("Submit", form.getValues());
+  const onSubmit = async () => {
+    const values = form.getValues();
+    setIsSubmitting(true);
+    setSubmitError(null);
+    try {
+      const [, detailsResult] = await Promise.all([
+        postBasicInfo({
+          fullName: values.fullName,
+          email: values.email,
+          department: values.department,
+          role: values.role,
+          employeeId: values.employeeId,
+        }),
+        postDetails({
+          photo: values.photo,
+          employmentType: values.employmentType,
+          officeLocation: values.officeLocation,
+          notes: values.notes,
+        }),
+      ]);
+      if (!detailsResult.success) {
+        setSubmitError(detailsResult.message);
+        setIsSubmitting(false);
+        return;
+      }
+      clearDraft();
+      navigate("/employee-list");
+    } catch (err) {
+      setSubmitError(
+        err instanceof Error
+          ? err.message
+          : "Submission failed. Please try again.",
+      );
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -222,15 +260,21 @@ export default function WizardPage() {
                 }}
               />
 
+              {submitError && (
+                <p className="wizard__submit-error">{submitError}</p>
+              )}
               <div className="wizard__form-footer">
                 <Button
                   type="button"
                   variant="ghost"
                   onClick={() => setStep(0)}
+                  disabled={isSubmitting}
                 >
                   Back
                 </Button>
-                <Button type="submit">Submit</Button>
+                <Button type="submit" disabled={isSubmitting}>
+                  {isSubmitting ? "Submitting…" : "Submit"}
+                </Button>
               </div>
             </>
           )}
