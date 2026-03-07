@@ -1,0 +1,134 @@
+.stepper {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.stepper__step {
+  display: flex;
+  align-items: center;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.stepper__indicator {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.875rem;
+  font-weight: 600;
+  flex-shrink: 0;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.stepper__number {
+  line-height: 1;
+}
+
+.stepper__check {
+  width: 14px;
+  height: 14px;
+}
+
+.stepper__step--active .stepper__indicator {
+  background-color: #646cff;
+  border: 2px solid #646cff;
+  color: #ffffff;
+}
+
+.stepper__step--completed .stepper__indicator {
+  background-color: #646cff;
+  border: 2px solid #646cff;
+  color: #ffffff;
+}
+
+.stepper__step--inactive .stepper__indicator {
+  background-color: transparent;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.stepper__label {
+  margin-left: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: color 0.2s ease;
+}
+
+.stepper__step--active .stepper__label {
+  color: #646cff;
+  font-weight: 600;
+}
+
+.stepper__step--completed .stepper__label {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.stepper__step--inactive .stepper__label {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.stepper__connector {
+  width: 48px;
+  height: 2px;
+  background-color: rgba(255, 255, 255, 0.15);
+  margin: 0 0.75rem;
+  flex-shrink: 0;
+  transition: background-color 0.2s ease;
+}
+
+.stepper__connector--done {
+  background-color: #646cff;
+}
+
+@media (prefers-color-scheme: light) {
+  .stepper__step--inactive .stepper__indicator {
+    border-color: rgba(0, 0, 0, 0.2);
+    color: rgba(0, 0, 0, 0.3);
+  }
+
+  .stepper__step--completed .stepper__label {
+    color: rgba(0, 0, 0, 0.55);
+  }
+
+  .stepper__step--inactive .stepper__label {
+    color: rgba(0, 0, 0, 0.3);
+  }
+
+  .stepper__connector {
+    background-color: rgba(0, 0, 0, 0.12);
+  }
+}
+
+@media (max-width: 767px) {
+  .stepper__label {
+    display: none;
+  }
+
+  .stepper__connector {
+    width: 32px;
+    margin: 0 0.5rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .stepper__indicator {
+    width: 36px;
+    height: 36px;
+    font-size: 0.9375rem;
+  }
+
+  .stepper__connector {
+    width: 64px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .stepper__connector {
+    width: 80px;
+  }
+}
