@@ -41,6 +41,14 @@ interface JsonServerPage<T> {
   pages: number
 }
 
+export async function getBasicInfoCount(): Promise<number> {
+  const response = await fetch(`${BASE_URL}/basicInfo?_page=1&_per_page=1`)
+  if (!response.ok) return 0
+  const json = await response.json() as JsonServerPage<BasicInfoRecord> | BasicInfoRecord[]
+  if (Array.isArray(json)) return json.length
+  return json.items
+}
+
 export async function getBasicInfoList(
   page: number,
   limit: number

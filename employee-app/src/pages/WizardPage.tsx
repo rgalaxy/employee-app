@@ -66,6 +66,7 @@ export default function WizardPage() {
           employeeId: values.employeeId,
         }),
         postDetails({
+          employeeId: values.employeeId,
           photo: values.photo,
           employmentType: values.employmentType,
           officeLocation: values.officeLocation,

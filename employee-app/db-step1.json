@@ -25,6 +25,22 @@
       "department": "Operations",
       "role": "Engineer",
       "employeeId": "OPE-001"
+    },
+    {
+      "id": "eeca",
+      "fullName": "Testing",
+      "email": "second@email.com",
+      "department": "Funding",
+      "role": "Admin",
+      "employeeId": "FUN-002"
+    },
+    {
+      "id": "7e8d",
+      "fullName": "Martin Haaa",
+      "email": "test@gmail.com",
+      "department": "Lending",
+      "role": "Engineer",
+      "employeeId": "LEN-003"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

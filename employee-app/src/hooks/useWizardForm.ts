@@ -2,8 +2,7 @@ import { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-
-const EXISTING_COUNT = 0
+import { getBasicInfoCount } from '../services/basicInfoService'
 
 export const wizardStep1Schema = z.object({
   fullName: z
@@ -55,6 +54,11 @@ export const WIZARD_DEFAULTS: WizardFormValues = {
 
 export function useWizardForm() {
   const [step, setStep] = useState(0)
+  const [existingCount, setExistingCount] = useState(0)
+
+  useEffect(() => {
+    getBasicInfoCount().then(setExistingCount).catch(() => {})
+  }, [])
 
   const form = useForm<WizardFormValues>({
     resolver: zodResolver(wizardFormSchema),
@@ -66,9 +70,9 @@ export function useWizardForm() {
 
   useEffect(() => {
     const prefix = (department ?? '').trim().slice(0, 3).toUpperCase()
-    const id = prefix ? `${prefix}-${String(EXISTING_COUNT + 1).padStart(3, '0')}` : ''
+    const id = prefix ? `${prefix}-${String(existingCount + 1).padStart(3, '0')}` : ''
     form.setValue('employeeId', id, { shouldValidate: true })
-  }, [department, form])
+  }, [department, existingCount, form])
 
   return { form, step, setStep }
 }
