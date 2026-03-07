@@ -5,12 +5,10 @@
   "type": "module",
   "scripts": {
     "test": "jest --config jest.config.cjs",
-    "dev": "node server",
-    "dev:mock": "node mock-server.js",
-    "build": "npm run build:client && npm run build:server",
-    "build:client": "vite build --outDir dist/client",
-    "build:server": "vite build --ssr src/entry-server.tsx --outDir dist/server",
-    "preview": "cross-env NODE_ENV=production node server"
+    "dev": "vite",
+    "dev:api": "node mock-server.js",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
