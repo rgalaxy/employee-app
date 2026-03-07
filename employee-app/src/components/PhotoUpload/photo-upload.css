@@ -1,0 +1,186 @@
+.photo-upload {
+  width: 100%;
+}
+
+.photo-upload__input {
+  display: none;
+}
+
+.photo-upload__trigger {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  min-height: 140px;
+  padding: 1.25rem;
+  border: 1.5px dashed rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.03);
+  cursor: pointer;
+  transition: border-color 0.18s ease, background-color 0.18s ease;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.photo-upload__trigger:hover,
+.photo-upload__trigger:focus-visible {
+  border-color: #646cff;
+  background-color: rgba(100, 108, 255, 0.06);
+  outline: none;
+}
+
+.photo-upload__trigger:focus-visible {
+  box-shadow: 0 0 0 3px rgba(100, 108, 255, 0.18);
+}
+
+.photo-upload--error .photo-upload__trigger {
+  border-color: #f87171;
+}
+
+.photo-upload--error .photo-upload__trigger:hover,
+.photo-upload--error .photo-upload__trigger:focus-visible {
+  border-color: #f87171;
+  background-color: rgba(248, 113, 113, 0.06);
+  box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.18);
+}
+
+.photo-upload--disabled .photo-upload__trigger {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.photo-upload__placeholder-icon {
+  color: rgba(255, 255, 255, 0.35);
+  line-height: 0;
+}
+
+.photo-upload__placeholder-text {
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.photo-upload__placeholder-hint {
+  font-size: 0.8125rem;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.photo-upload__preview-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.photo-upload__preview {
+  width: 100%;
+  max-width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1.5px solid rgba(255, 255, 255, 0.12);
+  display: block;
+}
+
+.photo-upload__preview-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+/* Remove button: danger colour override on top of btn--ghost */
+.photo-upload__remove-btn.btn {
+  border-color: rgba(248, 113, 113, 0.35);
+  color: #fca5a5;
+}
+
+.photo-upload__remove-btn.btn:hover:not(:disabled) {
+  background-color: rgba(248, 113, 113, 0.15);
+  border-color: #f87171;
+  color: #fca5a5;
+}
+
+@media (prefers-color-scheme: light) {
+  .photo-upload__trigger {
+    border-color: #d1d5db;
+    background-color: #fafafa;
+  }
+
+  .photo-upload__trigger:hover,
+  .photo-upload__trigger:focus-visible {
+    border-color: #646cff;
+    background-color: #f5f3ff;
+  }
+
+  .photo-upload__placeholder-icon {
+    color: #9ca3af;
+  }
+
+  .photo-upload__placeholder-text {
+    color: #374151;
+  }
+
+  .photo-upload__placeholder-hint {
+    color: #9ca3af;
+  }
+
+  .photo-upload__preview {
+    border-color: #e5e7eb;
+  }
+
+  /* Remove button: light-mode danger colour override */
+  .photo-upload__remove-btn.btn {
+    border-color: #fca5a5;
+    color: #dc2626;
+  }
+
+  .photo-upload__remove-btn.btn:hover:not(:disabled) {
+    background-color: #fecaca;
+    border-color: #ef4444;
+  }
+}
+
+@media (min-width: 768px) {
+  .photo-upload__trigger {
+    min-height: 160px;
+  }
+
+  .photo-upload__preview {
+    max-width: 240px;
+    height: 240px;
+  }
+
+  .photo-upload__placeholder-text {
+    font-size: 1rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .photo-upload__preview-wrapper {
+    flex-direction: row;
+    align-items: flex-end;
+    gap: 1rem;
+  }
+
+  .photo-upload__preview-actions {
+    flex-direction: column;
+  }
+}
+
+@media (min-width: 1440px) {
+  .photo-upload__preview {
+    max-width: 260px;
+    height: 260px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .photo-upload__trigger,
+  .photo-upload__change-btn,
+  .photo-upload__remove-btn {
+    transition: none;
+  }
+}
