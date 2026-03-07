@@ -1,6 +1,8 @@
 import "./wizard.css";
 import { Controller } from "react-hook-form";
 import { useWizardForm } from "../hooks/useWizardForm";
+import { useDraftPersistence } from "../hooks/useDraftPersistence";
+import { useRole } from "../context/RoleContext";
 import Stepper from "../components/Stepper/stepper";
 import FormField from "../components/FormField/form-field";
 import Autocomplete from "../components/Autocomplete/autocomplete";
@@ -17,7 +19,9 @@ async function fetchDepartmentOptions(): Promise<AutocompleteOption[]> {
 }
 
 export default function WizardPage() {
+  const { role } = useRole();
   const { form, step, setStep } = useWizardForm();
+  const { clearDraft } = useDraftPersistence(form, role);
   const {
     register,
     handleSubmit,
@@ -114,6 +118,9 @@ export default function WizardPage() {
           />
 
           <div className="wizard__form-footer">
+            <Button type="button" variant="ghost" onClick={clearDraft}>
+              Clear Draft
+            </Button>
             <Button type="submit" disabled={!isValid}>
               Next
             </Button>

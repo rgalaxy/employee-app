@@ -25,7 +25,9 @@
 
 .wizard__form-footer {
   display: flex;
-  justify-content: flex-start;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
   padding-top: 0.5rem;
 }
 
@@ -47,8 +49,12 @@
     border-radius: 8px;
   }
 
+  .wizard__form-footer {
+    flex-direction: row;
+  }
+
   .wizard__form-footer .btn {
-    width: 100%;
+    flex: 1;
   }
 }
 
