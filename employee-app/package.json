@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "node server",
+    "dev:mock": "node mock-server.js",
     "build": "npm run build:client && npm run build:server",
     "build:client": "vite build --outDir dist/client",
     "build:server": "vite build --ssr src/entry-server.tsx --outDir dist/server",
@@ -13,6 +14,7 @@
   "dependencies": {
     "compression": "^1.8.1",
     "express": "^5.2.1",
+    "json-server": "^1.0.0-beta.12",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "react-router-dom": "^7.13.1",

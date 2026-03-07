@@ -1,0 +1,9 @@
+{
+  "$schema": "./node_modules/json-server/schema.json",
+  "locations": [
+    { "id": "1", "name": "Jakarta" },
+    { "id": "2", "name": "Depok" },
+    { "id": "3", "name": "Surabaya" }
+  ],
+  "details": []
+}
