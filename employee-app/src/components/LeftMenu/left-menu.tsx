@@ -7,8 +7,8 @@ interface LeftMenuProps {
 }
 
 const menuItems = [
-  { label: "Wizard", path: "/wizard" },
   { label: "Employee List", path: "/employee-list" },
+  { label: "Wizard", path: "/wizard" },
 ];
 
 export default function LeftMenu({ isOpen, onClose }: LeftMenuProps) {

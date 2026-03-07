@@ -21,7 +21,10 @@ function App() {
           <LeftMenu isOpen={isMenuOpen} onClose={handleMenuClose} />
           <main className="app-main">
             <Routes>
-              <Route path="/" element={<Navigate to="/wizard" replace />} />
+              <Route
+                path="/"
+                element={<Navigate to="/employee-list" replace />}
+              />
               <Route path="/wizard" element={<WizardPage />} />
               <Route path="/employee-list" element={<EmployeeListPage />} />
             </Routes>
