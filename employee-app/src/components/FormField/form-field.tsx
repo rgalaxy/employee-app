@@ -3,6 +3,7 @@ import type {
   ReactNode,
   InputHTMLAttributes,
   SelectHTMLAttributes,
+  TextareaHTMLAttributes,
 } from "react";
 
 interface BaseProps {
@@ -23,12 +24,21 @@ interface SelectFieldProps extends BaseProps {
   selectProps?: SelectHTMLAttributes<HTMLSelectElement>;
 }
 
+interface TextareaFieldProps extends BaseProps {
+  as: "textarea";
+  textareaProps?: TextareaHTMLAttributes<HTMLTextAreaElement>;
+}
+
 interface CustomFieldProps extends BaseProps {
   as: "custom";
   children: ReactNode;
 }
 
-type FormFieldProps = InputFieldProps | SelectFieldProps | CustomFieldProps;
+type FormFieldProps =
+  | InputFieldProps
+  | SelectFieldProps
+  | TextareaFieldProps
+  | CustomFieldProps;
 
 export default function FormField(props: FormFieldProps) {
   const { label, error, required } = props;
@@ -58,6 +68,14 @@ export default function FormField(props: FormFieldProps) {
         >
           {props.children}
         </select>
+      ) : props.as === "textarea" ? (
+        <textarea
+          id={fieldId}
+          className="form-field__textarea"
+          aria-describedby={error ? errorId : undefined}
+          aria-invalid={!!error}
+          {...props.textareaProps}
+        />
       ) : props.as === "custom" ? (
         props.children
       ) : (
