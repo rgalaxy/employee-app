@@ -26,6 +26,38 @@ export async function getDepartments(): Promise<Department[]> {
   return response.json() as Promise<Department[]>
 }
 
+export interface BasicInfoRecord extends BasicInfoPayload {
+  id: string
+}
+
+export interface PaginatedResult<T> {
+  data: T[]
+  total: number
+}
+
+interface JsonServerPage<T> {
+  data: T[]
+  items: number
+  pages: number
+}
+
+export async function getBasicInfoList(
+  page: number,
+  limit: number
+): Promise<PaginatedResult<BasicInfoRecord>> {
+  const response = await fetch(`${BASE_URL}/basicInfo?_page=${page}&_per_page=${limit}`)
+
+  if (!response.ok) {
+    throw new Error(`Failed to fetch employees: ${response.status} ${response.statusText}`)
+  }
+
+  const json = await response.json() as JsonServerPage<BasicInfoRecord> | BasicInfoRecord[]
+  if (Array.isArray(json)) { // guard for non-paginated response
+    return { data: json, total: json.length }
+  }
+  return { data: json.data, total: json.items }
+}
+
 export async function postBasicInfo(payload: BasicInfoPayload): Promise<void> {
   await delay(3000)
   const response = await fetch(`${BASE_URL}/basicInfo`, {

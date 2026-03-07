@@ -6,13 +6,30 @@ export interface Location {
 }
 
 export interface DetailsPayload {
+  employeeId: string
   photo: string
   employmentType: string
   officeLocation: string
   notes?: string
 }
 
+export interface DetailsRecord extends DetailsPayload {
+  id: string
+}
+
 const BASE_URL = 'http://localhost:4002'
+
+export async function getDetailsByEmployeeIds(employeeIds: string[]): Promise<DetailsRecord[]> {
+  if (employeeIds.length === 0) return []
+  const results = await Promise.all(
+    employeeIds.map(async (employeeId) => {
+      const response = await fetch(`${BASE_URL}/details?employeeId=${encodeURIComponent(employeeId)}`)
+      if (!response.ok) return []
+      return response.json() as Promise<DetailsRecord[]>
+    })
+  )
+  return results.flat()
+}
 
 export async function getLocations(): Promise<Location[]> {
   const response = await fetch(`${BASE_URL}/locations`)
