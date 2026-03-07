@@ -51,6 +51,7 @@ export function useAsyncAutocomplete({
   return {
     query,
     setQuery,
+    allOptions,
     filteredOptions,
     isLoading,
     isOpen,

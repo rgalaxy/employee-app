@@ -1,5 +1,4 @@
 import { useRef, useEffect, useId } from "react";
-import type { KeyboardEvent } from "react";
 import "./autocomplete.css";
 import {
   useAsyncAutocomplete,
@@ -37,6 +36,7 @@ export default function Autocomplete({
   const {
     query,
     setQuery,
+    allOptions,
     filteredOptions,
     isLoading,
     isOpen,
@@ -81,6 +81,13 @@ export default function Autocomplete({
   const handleBlur = () => {
     setTimeout(() => {
       setIsOpen(false);
+      const matched = allOptions.find(
+        (o) => o.label.toLowerCase() === query.toLowerCase(),
+      );
+      if (!matched) {
+        setQuery("");
+        onChange("");
+      }
       onBlur?.();
     }, 150);
   };
