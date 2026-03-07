@@ -21,27 +21,51 @@ export const wizardStep1Schema = z.object({
   employeeId: z.string().min(1),
 })
 
+export const wizardFormSchema = wizardStep1Schema.extend({
+  photo: z.string().min(1, 'Photo is required'),
+  employmentType: z.enum(['Full-time', 'Part-time', 'Contract', 'Intern'], {
+    error: () => 'Select an employment type',
+  }),
+  officeLocation: z.string().min(1, 'Office location is required'),
+  notes: z.string().optional(),
+})
+
 export type WizardStep1Values = z.infer<typeof wizardStep1Schema>
+export type WizardFormValues = z.infer<typeof wizardFormSchema>
+
+export const STEP_1_FIELDS: (keyof WizardStep1Values)[] = [
+  'fullName',
+  'email',
+  'department',
+  'role',
+  'employeeId',
+]
+
+export const WIZARD_DEFAULTS: WizardFormValues = {
+  fullName: '',
+  email: '',
+  department: '',
+  role: '' as WizardStep1Values['role'],
+  employeeId: '',
+  photo: '',
+  employmentType: '' as WizardFormValues['employmentType'],
+  officeLocation: '',
+  notes: '',
+}
 
 export function useWizardForm() {
   const [step, setStep] = useState(0)
 
-  const form = useForm<WizardStep1Values>({
-    resolver: zodResolver(wizardStep1Schema),
+  const form = useForm<WizardFormValues>({
+    resolver: zodResolver(wizardFormSchema),
     mode: 'onChange',
-    defaultValues: {
-      fullName: '',
-      email: '',
-      department: '',
-      role: '' as WizardStep1Values['role'],
-      employeeId: '',
-    },
+    defaultValues: WIZARD_DEFAULTS,
   })
 
   const department = form.watch('department')
 
   useEffect(() => {
-    const prefix = department.trim().slice(0, 3).toUpperCase()
+    const prefix = (department ?? '').trim().slice(0, 3).toUpperCase()
     const id = prefix ? `${prefix}-${String(EXISTING_COUNT + 1).padStart(3, '0')}` : ''
     form.setValue('employeeId', id, { shouldValidate: true })
   }, [department, form])
