@@ -9,6 +9,7 @@ interface BaseProps {
   label: string;
   error?: string;
   required?: boolean;
+  fieldId?: string;
 }
 
 interface InputFieldProps extends BaseProps {
@@ -22,11 +23,17 @@ interface SelectFieldProps extends BaseProps {
   selectProps?: SelectHTMLAttributes<HTMLSelectElement>;
 }
 
-type FormFieldProps = InputFieldProps | SelectFieldProps;
+interface CustomFieldProps extends BaseProps {
+  as: "custom";
+  children: ReactNode;
+}
+
+type FormFieldProps = InputFieldProps | SelectFieldProps | CustomFieldProps;
 
 export default function FormField(props: FormFieldProps) {
   const { label, error, required } = props;
-  const fieldId = label.toLowerCase().replace(/\s+/g, "-");
+  const internalFieldId = label.toLowerCase().replace(/\s+/g, "-");
+  const fieldId = props.fieldId ?? internalFieldId;
   const errorId = `${fieldId}-error`;
 
   return (
@@ -51,10 +58,14 @@ export default function FormField(props: FormFieldProps) {
         >
           {props.children}
         </select>
+      ) : props.as === "custom" ? (
+        props.children
       ) : (
         <input
           id={fieldId}
-          className={`form-field__input${props.inputProps?.disabled ? " form-field__input--disabled" : ""}`}
+          className={`form-field__input${
+            props.inputProps?.disabled ? " form-field__input--disabled" : ""
+          }`}
           aria-describedby={error ? errorId : undefined}
           aria-invalid={!!error}
           {...props.inputProps}
