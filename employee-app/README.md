@@ -79,3 +79,9 @@ https://amartha-test.netlify.app/
 
 - Frontend hosted on Netlify
 - Mock API hosted on Render (details and basic info services)
+
+## NOTES - Works done after the time limit of project
+
+- The implementation of Ops/Admin role-based access control (11/10/2026 11:36 WIB)
+- Refactoring the Wizard Page (11/10/2026 11:40 WIB)
+- Adding and implementing Toast component for better user feedback (11/10/2026 12:25 WIB)

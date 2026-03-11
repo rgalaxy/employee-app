@@ -26,7 +26,6 @@ interface WizardStep2Props {
   control: Control<WizardFormValues>;
   errors: FieldErrors<WizardFormValues>;
   isSubmitting: boolean;
-  submitError: string | null;
   role: Role;
   onBack: () => void;
 }
@@ -36,7 +35,6 @@ export default function WizardStep2({
   control,
   errors,
   isSubmitting,
-  submitError,
   role,
   onBack,
 }: WizardStep2Props) {
@@ -112,8 +110,6 @@ export default function WizardStep2({
           ...register("notes"),
         }}
       />
-
-      {submitError && <p className="wizard__submit-error">{submitError}</p>}
 
       <div className="wizard__form-footer">
         {role !== "Ops" && (

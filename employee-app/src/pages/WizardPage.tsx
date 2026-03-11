@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useWizardForm, STEP_1_FIELDS } from "../hooks/useWizardForm";
 import { useDraftPersistence } from "../hooks/useDraftPersistence";
 import { useRole } from "../context/RoleContext";
+import { useToast } from "../hooks/useToast";
 import Stepper from "../components/Stepper/stepper";
 import { postBasicInfo } from "../services/basicInfoService";
 import { postDetails } from "../services/detailsService";
@@ -15,6 +16,7 @@ const WIZARD_STEPS = ["Basic Info", "Details"];
 export default function WizardPage() {
   const navigate = useNavigate();
   const { role } = useRole();
+  const { toast } = useToast();
   const { form, step, setStep } = useWizardForm(role);
   const { clearDraft } = useDraftPersistence(form, role);
   const {
@@ -24,7 +26,6 @@ export default function WizardPage() {
     formState: { errors },
   } = form;
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const handleNext = async () => {
     const valid = await form.trigger(STEP_1_FIELDS);
@@ -36,7 +37,7 @@ export default function WizardPage() {
     if (role === "Ops") {
       const step1Valid = await form.trigger(STEP_1_FIELDS);
       if (!step1Valid) {
-        setSubmitError(
+        toast.error(
           "Basic Info (Step 1) is incomplete. Please ask an Admin to fill it first.",
         );
         return;
@@ -48,7 +49,6 @@ export default function WizardPage() {
   const onSubmit = async () => {
     const values = form.getValues();
     setIsSubmitting(true);
-    setSubmitError(null);
     try {
       const [, detailsResult] = await Promise.all([
         postBasicInfo({
@@ -67,14 +67,15 @@ export default function WizardPage() {
         }),
       ]);
       if (!detailsResult.success) {
-        setSubmitError(detailsResult.message);
+        toast.error(detailsResult.message);
         setIsSubmitting(false);
         return;
       }
       clearDraft();
+      toast.success("Employee added successfully.");
       navigate("/employee-list");
     } catch (err) {
-      setSubmitError(
+      toast.error(
         err instanceof Error
           ? err.message
           : "Submission failed. Please try again.",
@@ -104,7 +105,6 @@ export default function WizardPage() {
               control={control}
               errors={errors}
               isSubmitting={isSubmitting}
-              submitError={submitError}
               role={role}
               onBack={() => setStep(0)}
             />
