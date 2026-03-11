@@ -7,6 +7,8 @@
     "test": "jest --config jest.config.cjs",
     "dev": "vite",
     "dev:api": "node mock-server.js",
+    "backend:details": "json-server --watch db-step1.json --host 0.0.0.0 --port $PORT",
+    "backend:basicinfo": "json-server --watch db-step2.json --host 0.0.0.0 --port $PORT",
     "build": "vite build",
     "preview": "vite preview"
   },
