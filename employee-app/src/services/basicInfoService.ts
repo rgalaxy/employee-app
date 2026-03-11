@@ -13,7 +13,7 @@ export interface BasicInfoPayload {
   employeeId: string
 }
 
-const BASE_URL = 'http://localhost:4001'
+const BASE_URL = import.meta.env.VITE_BASIC_INFO_API_URL || 'http://localhost:4001'
 
 export async function getDepartments(): Promise<Department[]> {
   await delay(2000)

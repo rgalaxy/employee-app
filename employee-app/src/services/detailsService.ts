@@ -17,7 +17,7 @@ export interface DetailsRecord extends DetailsPayload {
   id: string
 }
 
-const BASE_URL = 'http://localhost:4002'
+const BASE_URL = import.meta.env.VITE_DETAILS_API_URL || 'http://localhost:4002'
 
 export async function getDetailsByEmployeeIds(employeeIds: string[]): Promise<DetailsRecord[]> {
   if (employeeIds.length === 0) return []

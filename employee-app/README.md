@@ -22,23 +22,28 @@ npm install
 npm run dev
 ```
 
-### Run development server
+### Run api development server
 
 ```bash
 npm run dev:api
 ```
 
+### Run backend for production
+
+```bash
+npm run backend:details
+npm run backend:basicinfo
+```
+
 The app will be available at `http://localhost:5173` and the mock API at `http://localhost:4001` and `http://localhost:4002`.
 
-## Scripts
+## How to Use the App on Local
 
-| Script            | Description              |
-| ----------------- | ------------------------ |
-| `npm run dev`     | Start SSR dev server     |
-| `npm run dev:api` | Start mock JSON server   |
-| `npm run build`   | Build client App         |
-| `npm run preview` | Preview production build |
-| `npm test`        | Run unit tests           |
+1. Clone the repository and navigate to the project directory. (make sure to move inside `employee-app` folder)
+2. Install dependencies using `npm install`.
+3. Start the mock API server using `npm run dev:api`.
+4. In another terminal, start the development server using `npm run dev`.
+5. Open your browser and navigate to `http://localhost:5173` to access the app.
 
 ## Project Structure
 
@@ -64,3 +69,8 @@ src/
 ## URL to Access the App
 
 https://amartha-test.netlify.app/
+
+## Production Infrastructure
+
+- Frontend hosted on Netlify
+- Mock API hosted on Render (details and basic info services)
