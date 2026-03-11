@@ -41,6 +41,46 @@
       "department": "Lending",
       "role": "Engineer",
       "employeeId": "LEN-003"
+    },
+    {
+      "id": "cb57",
+      "fullName": "asd",
+      "email": "asd@asd.com",
+      "department": "Lending",
+      "role": "Admin",
+      "employeeId": "LEN-004"
+    },
+    {
+      "id": "320e",
+      "fullName": "Mon",
+      "email": "Mon@cim.com",
+      "department": "Lending",
+      "role": "Admin",
+      "employeeId": "LEN-005"
+    },
+    {
+      "id": "2987",
+      "fullName": "Mar",
+      "email": "mar@company.com",
+      "department": "Operations",
+      "role": "Ops",
+      "employeeId": "OPE-006"
+    },
+    {
+      "id": "7f1f",
+      "fullName": "affff",
+      "email": "afff@gmail.com",
+      "department": "Lending",
+      "role": "Engineer",
+      "employeeId": "LEN-007"
+    },
+    {
+      "id": "e8c8",
+      "fullName": "doe",
+      "email": "doe@email.com",
+      "department": "Lending",
+      "role": "Admin",
+      "employeeId": "LEN-008"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

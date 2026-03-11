@@ -26,7 +26,7 @@ export default function EmployeeListPage() {
   const { role } = useRole();
 
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(10);
+  const [limit, setLimit] = useState(5);
   const [employees, setEmployees] = useState<MergedEmployee[]>([]);
   const [total, setTotal] = useState(0);
   const [isLoading, setIsLoading] = useState(false);

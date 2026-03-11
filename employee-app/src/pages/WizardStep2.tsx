@@ -56,6 +56,7 @@ export default function WizardStep2({
               onChange={field.onChange}
               onBlur={field.onBlur}
               hasError={!!errors.photo}
+              disabled={isSubmitting}
             />
           )}
         />
@@ -66,7 +67,7 @@ export default function WizardStep2({
         as="select"
         error={errors.employmentType?.message}
         required
-        selectProps={register("employmentType")}
+        selectProps={{ ...register("employmentType"), disabled: isSubmitting }}
       >
         <option value="">Select employment type</option>
         {EMPLOYMENT_TYPES.map((t) => (
@@ -96,6 +97,7 @@ export default function WizardStep2({
               debounceMs={300}
               placeholder="e.g. Jakarta"
               hasError={!!errors.officeLocation}
+              disabled={isSubmitting}
             />
           )}
         />
@@ -107,6 +109,7 @@ export default function WizardStep2({
         textareaProps={{
           placeholder: "Any additional notes…",
           rows: 4,
+          disabled: isSubmitting,
           ...register("notes"),
         }}
       />
