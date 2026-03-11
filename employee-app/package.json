@@ -7,14 +7,15 @@
     "test": "jest --config jest.config.cjs",
     "dev": "vite",
     "dev:api": "node mock-server.js",
-    "backend:details": "json-server --watch db-step1.json --host 0.0.0.0 --port $PORT",
-    "backend:basicinfo": "json-server --watch db-step2.json --host 0.0.0.0 --port $PORT",
+    "backend:basicinfo": "json-server --watch db-step1.json --host 0.0.0.0 --port $PORT",
+    "backend:details": "json-server --watch db-step2.json --host 0.0.0.0 --port $PORT",
     "build": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
     "compression": "^1.8.1",
+    "cors": "^2.8.6",
     "express": "^5.2.1",
     "json-server": "^1.0.0-beta.12",
     "react": "^19.2.4",

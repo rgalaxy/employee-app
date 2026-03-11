@@ -70,6 +70,11 @@ src/
 
 https://amartha-test.netlify.app/
 
+## URL to Access the Mock API
+
+- Basic Info Service: https://employee-app-f1p7.onrender.com
+- Details Service: https://your-details-service.up.railway.app
+
 ## Production Infrastructure
 
 - Frontend hosted on Netlify
