@@ -27,9 +27,19 @@ export function useDraftPersistence(
 
   useEffect(() => {
     skipNextSaveRef.current = true
+    const REQUIRED_FIELDS: (keyof WizardFormValues)[] = [
+      'fullName', 'email', 'department', 'role', 'employeeId',
+      'photo', 'employmentType', 'officeLocation',
+    ]
     const draft = readDraft(draftKey)
-    form.reset(draft ? { ...WIZARD_DEFAULTS, ...draft } : WIZARD_DEFAULTS)
-  }, [draftKey, form])
+    const hasPriorData = draft !== null && REQUIRED_FIELDS.every((f) => !!draft[f])
+    if (role === 'Ops' && !hasPriorData) {
+      const adminDraft = readDraft(DRAFT_KEYS['Admin'])
+      form.reset(adminDraft ? { ...WIZARD_DEFAULTS, ...adminDraft } : WIZARD_DEFAULTS)
+    } else {
+      form.reset(draft ? { ...WIZARD_DEFAULTS, ...draft } : WIZARD_DEFAULTS)
+    }
+  }, [draftKey, role, form])
 
   useEffect(() => {
     const { unsubscribe } = form.watch((values) => {

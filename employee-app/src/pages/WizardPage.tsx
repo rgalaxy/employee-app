@@ -1,5 +1,5 @@
 import "./wizard.css";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Controller } from "react-hook-form";
 import { useWizardForm, STEP_1_FIELDS } from "../hooks/useWizardForm";
@@ -36,7 +36,7 @@ async function fetchLocationOptions(): Promise<AutocompleteOption[]> {
 export default function WizardPage() {
   const navigate = useNavigate();
   const { role } = useRole();
-  const { form, step, setStep } = useWizardForm();
+  const { form, step, setStep } = useWizardForm(role);
   const { clearDraft } = useDraftPersistence(form, role);
   const {
     register,
@@ -50,6 +50,20 @@ export default function WizardPage() {
   const handleNext = async () => {
     const valid = await form.trigger(STEP_1_FIELDS);
     if (valid) setStep(1);
+  };
+
+  const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (role === "Ops") {
+      const step1Valid = await form.trigger(STEP_1_FIELDS);
+      if (!step1Valid) {
+        setSubmitError(
+          "Basic Info (Step 1) is incomplete. Please ask an Admin to fill it first.",
+        );
+        return;
+      }
+    }
+    handleSubmit(onSubmit)(e);
   };
 
   const onSubmit = async () => {
@@ -95,11 +109,7 @@ export default function WizardPage() {
       <h1 className="wizard__title">Add Employee</h1>
       <Stepper steps={WIZARD_STEPS} currentStep={step} />
       <div className="wizard__card">
-        <form
-          className="wizard__form"
-          onSubmit={handleSubmit(onSubmit)}
-          noValidate
-        >
+        <form className="wizard__form" onSubmit={handleFormSubmit} noValidate>
           {step === 0 && (
             <>
               <FormField
@@ -265,14 +275,16 @@ export default function WizardPage() {
                 <p className="wizard__submit-error">{submitError}</p>
               )}
               <div className="wizard__form-footer">
-                <Button
-                  type="button"
-                  variant="ghost"
-                  onClick={() => setStep(0)}
-                  disabled={isSubmitting}
-                >
-                  Back
-                </Button>
+                {role !== "Ops" && (
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    onClick={() => setStep(0)}
+                    disabled={isSubmitting}
+                  >
+                    Back
+                  </Button>
+                )}
                 <Button type="submit" disabled={isSubmitting}>
                   {isSubmitting ? "Submitting…" : "Submit"}
                 </Button>

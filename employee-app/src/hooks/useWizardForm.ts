@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { getBasicInfoCount } from '../services/basicInfoService'
+import type { Role } from '../context/RoleContext'
 
 export const wizardStep1Schema = z.object({
   fullName: z
@@ -52,9 +53,13 @@ export const WIZARD_DEFAULTS: WizardFormValues = {
   notes: '',
 }
 
-export function useWizardForm() {
-  const [step, setStep] = useState(0)
+export function useWizardForm(role: Role = 'Admin') {
+  const [step, setStep] = useState(() => (role === 'Ops' ? 1 : 0))
   const [existingCount, setExistingCount] = useState(0)
+
+  useEffect(() => {
+    setStep(role === 'Ops' ? 1 : 0)
+  }, [role])
 
   useEffect(() => {
     getBasicInfoCount().then(setExistingCount).catch(() => {})
